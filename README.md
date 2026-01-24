@@ -31,22 +31,24 @@ src/main/java/com/iuc/event_management
 
 ## Configuration
 
-The application is configured via `src/main/resources/application.properties`.
+The application is configured via `src/main/resources/application.yml`.
 
 ### Database Configuration
 
 Ensure you have a MySQL server running and create a database named `Event_Management_System`.
 
-```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/Event_Management_System?createDatabaseIfNotExist=true&useSSL=true&serverTimezone=UTC
-spring.datasource.username=root
-spring.datasource.password=YOUR_PASSWORD
+```yaml
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/Event_Management_System?createDatabaseIfNotExist=true&useSSL=true&serverTimezone=UTC
+    username: root
+    password: YOUR_PASSWORD
 ```
 
 ### JPA / Hibernate
 
-- `spring.jpa.hibernate.ddl-auto=update`: Automatically updates the schema.
-- `spring.jpa.show-sql=true`: Logs SQL queries for debugging.
+- `spring.jpa.hibernate.ddl-auto: update`: Automatically updates the schema.
+- `spring.jpa.show-sql: true`: Logs SQL queries for debugging.
 
 ## Installation & Execution
 
@@ -66,7 +68,7 @@ spring.datasource.password=YOUR_PASSWORD
    ```
 
 2. **Configure Database**
-   Update `src/main/resources/application.properties` with your MySQL credentials.
+   Update `src/main/resources/application.yml` with your MySQL credentials.
 
 3. **Build the project**
 
@@ -104,7 +106,7 @@ The server will start on port `8085` (as defined in properties).
 
 > **Note**: Most endpoints require a valid Bearer Token in the `Authorization` header.
 
-##  Security
+## Security
 
 Authentication is stateful-less using **JWT**.
 

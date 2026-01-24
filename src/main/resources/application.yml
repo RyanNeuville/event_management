@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: Event Management
+  datasource:
+    url: jdbc:mysql://localhost:3306/Event_Management_System?createDatabaseIfNotExist=true&useSSL=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database: mysql
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+        format-sql: true
+
+server:
+  port: 8085
