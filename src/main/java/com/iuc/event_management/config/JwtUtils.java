@@ -6,42 +6,41 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
 
+import javax.crypto.SecretKey;
 import java.util.Date;
 
 @Component
 public class JwtUtils {
-    private final String SECRET = "very-long-jwt-secret-key-1234567890";
+    private final String SECRET = "very-long-jwt-secret-key-1234567890-secure";
 
+    private final SecretKey key = Keys.hmacShaKeyFor(SECRET.getBytes());
 
     public String generateToken(String email, String role) {
         return Jwts.builder()
                 .setSubject(email)
                 .claim("role", role)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 86400000))
-                .signWith(Keys.hmacShaKeyFor(SECRET.getBytes()), SignatureAlgorithm.HS256)
+                .setExpiration(new Date(System.currentTimeMillis() + 86400000)) 
+                .signWith(key, SignatureAlgorithm.HS256) 
                 .compact();
     }
-    private byte[] getSigningKey() {
-        return Keys.hmacShaKeyFor(SECRET.getBytes()).getEncoded();
-    }
-
 
     public boolean validateToken(String token) {
         try {
             Jwts.parserBuilder()
-                    .setSigningKey(getSigningKey())
+                    .setSigningKey(key) 
                     .build()
                     .parseClaimsJws(token);
             return true;
         } catch (JwtException | IllegalArgumentException e) {
-            // token invalide, expiré, mal signé, etc.
+            System.out.println("Erreur de validation JWT : " + e.getMessage());
             return false;
         }
     }
+
     public String extractUsername(String token) {
         return Jwts.parserBuilder()
-                .setSigningKey(getSigningKey())
+                .setSigningKey(key) 
                 .build()
                 .parseClaimsJws(token)
                 .getBody()
