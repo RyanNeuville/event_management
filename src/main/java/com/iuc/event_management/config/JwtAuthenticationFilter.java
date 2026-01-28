@@ -1,7 +1,6 @@
 package com.iuc.event_management.config;
 
-import com.iuc.event_management.config.JwtUtils;
-import io.jsonwebtoken.io.IOException;
+import java.io.IOException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
